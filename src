@@ -1,0 +1,6 @@
+/AnaliseSelecaoBrasileira
+│
+├── /src
+│   └── analise_selecao.py
+├── .gitignore
+└── README.md
