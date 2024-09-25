@@ -1,0 +1,12 @@
+# Ignorar arquivos temporários e cache
+*.pyc
+__pycache__/
+
+# Ignorar ambientes virtuais
+venv/
+env/
+
+# Ignorar arquivos de saída de gráficos
+*.png
+*.jpg
+*.pdf
