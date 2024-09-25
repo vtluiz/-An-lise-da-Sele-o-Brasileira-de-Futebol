@@ -1,0 +1,98 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Estilo dos gráficos
+sns.set(style="whitegrid")
+
+# 1. Carregar os dados
+# Tabela 1: Jogadores da Copa do Mundo de 1994
+jogadores_data = {
+    "Jogador": ["Taffarel", "Zetti", "Gilmar", "Jorginho", "Cafu", "Ricardo Rocha", "Aldair", 
+                "Ronaldão", "Márcio Santos", "Branco", "Leonardo", "Mauro Silva", "Dunga", 
+                "Zinho", "Mazinho", "Raí", "Bebeto", "Romário", "Paulo Sérgio", "Müller", 
+                "Viola", "Ronaldo", "Carlos Alberto Parreira"],
+    "Idade em 2024": [58, 59, 65, 59, 54, 61, 58, 59, 54, 60, 54, 56, 60, 57, 58, 59, 
+                      60, 58, 55, 58, 55, 47, 81],
+    "Clube em 1994": ["Reggiana", "São Paulo", "Flamengo", "Bayer Leverkusen", "Roma", 
+                      "Vasco", "Roma", "Shimizu S-Pulse", "Bordeaux", "Flamengo", 
+                      "Milan", "La Coruña", "Stuttgart", "Palmeiras", "Palmeiras", 
+                      "PSG", "La Coruña", "Barcelona", "Bayer Leverkusen", "São Paulo", 
+                      "Corinthians", "Cruzeiro", "N/A"],
+    "Status Atual": ["Treinador de goleiros", "Coordenador de goleiros", "Empresário de jogadores", 
+                     "Treinador", "Palestrante e embaixador", "Comentarista", 
+                     "Empresário de futebol", "Empresário de futebol", 
+                     "Empresário e proprietário de shopping", "Coordenador de base", 
+                     "Ex-diretor do PSG", "Vice-presidente da Federação Paulista", 
+                     "Ações sociais e palestras", "Comentarista", 
+                     "Cuida das carreiras dos filhos", "Estudante e gestor de marcas", 
+                     "Comentarista e ex-deputado", "Senador e presidente do América-RJ", 
+                     "Embaixador da Bundesliga", "Comentarista", 
+                     "Jogador de showbol", "Empresário e dono do Real Valladolid", 
+                     "Aposentado e em tratamento médico"]
+}
+
+jogadores_df = pd.DataFrame(jogadores_data)
+
+# Tabela 2: Participações da Seleção Brasileira na Copa do Mundo
+participacoes_data = {
+    "Copa do Mundo": ["Catar", "Rússia", "Brasil", "África do Sul"],
+    "Ano": [2022, 2018, 2014, 2010],
+    "Participação": ["Quartas de final", "Quartas de final", "4º lugar", "Quartas de final"],
+    "Artilheiro": ["Richarlison - 3 gols", "Neymar e Coutinho - 2 gols", "Neymar - 4 gols", "Luis Fabiano - 3 gols"],
+    "Jogos": [5, 5, 7, 5],
+    "Vitórias": [3, 3, 3, 3],
+    "Empates": [1, 1, 2, 1],
+    "Derrotas": [1, 1, 2, 1],
+    "Aproveitamento": [66.6, 66.6, 52.3, 66.6],
+    "Gols": [8, 8, 11, 9],
+    "Gols Sofridos": [3, 3, 14, 4]
+}
+
+participacoes_df = pd.DataFrame(participacoes_data)
+
+# Tabela 3: Maiores Artilheiros da Seleção Brasileira (Jogos Oficiais)
+artilheiros_oficiais_data = {
+    "Posição": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    "Jogador": ["Neymar", "Pelé", "Ronaldo", "Romário", "Zico", "Bebeto", "Rivaldo", "Jairzinho", "Ronaldinho Gaúcho", "Ademir de Menezes"],
+    "Gols": [79, 77, 62, 55, 48, 39, 35, 33, 33, 32]
+}
+
+artilheiros_oficiais_df = pd.DataFrame(artilheiros_oficiais_data)
+
+# Tabela 4: Maiores Artilheiros da Seleção Brasileira em Copas do Mundo
+artilheiros_copa_data = {
+    "Posição": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+    "Jogador": ["Ronaldo", "Pelé", "Jairzinho", "Ademir de Menezes", "Vavá", "Neymar", "Leônidas da Silva", "Rivaldo", "Careca", "Rivellino", "Bebeto", "Romário", "Garrincha", "Zico"],
+    "Gols": [15, 12, 9, 9, 9, 8, 8, 8, 7, 6, 6, 5, 5, 5]
+}
+
+artilheiros_copa_df = pd.DataFrame(artilheiros_copa_data)
+
+# 2. Análise de Dados
+# Média de idades dos jogadores
+media_idade = jogadores_df["Idade em 2024"].mean()
+
+# Análise de Gols por Copa
+gols_por_copa = participacoes_df.groupby("Copa do Mundo")["Gols"].sum()
+
+# 3. Criação de Gráficos
+plt.figure(figsize=(10, 6))
+sns.barplot(x=artilheiros_oficiais_df["Jogador"], y=artilheiros_oficiais_df["Gols"])
+plt.title("Maiores Artilheiros da Seleção Brasileira (Jogos Oficiais)")
+plt.xlabel("Jogador")
+plt.ylabel("Gols")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+
+plt.figure(figsize=(10, 6))
+sns.lineplot(x=gols_por_copa.index, y=gols_por_copa.values, marker='o')
+plt.title("Total de Gols por Copa do Mundo")
+plt.xlabel("Copa do Mundo")
+plt.ylabel("Total de Gols")
+plt.grid()
+plt.tight_layout()
+plt.show()
+
